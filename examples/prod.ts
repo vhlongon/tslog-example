@@ -17,7 +17,7 @@ export function main(logType?: LogType) {
 
   // will show
   logger.info('I am an info log.');
-  logger.warn('I am a warn log with a json object:');
-  logger.error('I am an error log with a json object:');
-  logger.fatal('I am a fatal log with a json object:');
+  logger.warn('I am a warn log with');
+  logger.error('I am an error log with');
+  logger.fatal('I am a fatal log with');
 }
