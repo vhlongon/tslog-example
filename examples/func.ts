@@ -7,21 +7,16 @@ const withErrorHandler =
     try {
       callback();
     } catch (error) {
-      logger.error('erroHandler 1 >', ...args);
-      logger.error(error);
+      logger.error(error, ...args);
     }
   };
 
-const anotherFunction = <T>(logger: Logger<T>) => {
-  const randomError = Math.random() > 0.5;
-
+const faultyFunction = <T>(logger: Logger<T>) => {
   try {
-    if (randomError) {
-      throw new Error('Randomly thrown error with stack trace');
-    }
-    // no error here
+    const error = new Error('faultyFunction: error');
+    throw error;
   } catch (error) {
-    logger.error('Using the logger more directly - I caught an error');
+    logger.fatal(error);
   }
 };
 
@@ -29,14 +24,18 @@ export function main(logType?: LogType) {
   const logger = new Logger({
     minLevel: 5,
     type: logType,
+    prettyLogStyles: {
+      logLevelName: {
+        ERROR: ['dim', 'bgRedBright'],
+        FATAL: ['bold', 'bgRedBright'],
+      },
+    },
   });
 
-  const run = withErrorHandler(logger, 'I caught an error');
+  const run = withErrorHandler(logger);
 
   run(() => {
-    throw new Error(
-      'Example of function that throws an error with stack trace'
-    );
+    throw new Error('withErrorHandler: error');
   });
 
   run(() => {
@@ -44,5 +43,5 @@ export function main(logType?: LogType) {
   });
 
   // or simply use the logger directly, passing the logger instance
-  anotherFunction(logger);
+  faultyFunction(logger);
 }
