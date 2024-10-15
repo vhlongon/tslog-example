@@ -1,6 +1,6 @@
 import { Logger, type ILogObjMeta, type ISettingsParam, ILogObj } from 'tslog';
 
-export class CustomLogger<LogObj> extends Logger<LogObj> {
+class CustomLogger<LogObj> extends Logger<LogObj> {
   /**
    * Logs a _CUSTOM_ message.
    * @param args  - Multiple log attributes that should be logged.
@@ -20,6 +20,8 @@ const logger = new CustomLogger({
   },
 });
 
-const logged = logger.custom('Using custom log level');
+export function main() {
+  const logged = logger.custom('Using custom log level');
 
-logger.info(logged);
+  logger.info(logged);
+}

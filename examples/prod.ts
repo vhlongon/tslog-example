@@ -8,13 +8,15 @@ const logger = new Logger({
   minLevel: 3,
 });
 
-// wont show
-logger.silly('I am a silly log.');
-logger.trace('I am a trace log.');
-logger.debug('I am a debug log.');
+export function main() {
+  // wont show
+  logger.silly('I am a silly log.');
+  logger.trace('I am a trace log.');
+  logger.debug('I am a debug log.');
 
-// will show
-logger.info('I am an info log.');
-logger.warn('I am a warn log with a json object:');
-logger.error('I am an error log with a json object:');
-logger.fatal('I am a fatal log with a json object:');
+  // will show
+  logger.info('I am an info log.');
+  logger.warn('I am a warn log with a json object:');
+  logger.error('I am an error log with a json object:');
+  logger.fatal('I am a fatal log with a json object:');
+}

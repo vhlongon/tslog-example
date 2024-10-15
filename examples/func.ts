@@ -15,18 +15,6 @@ const errorHandler =
     }
   };
 
-const handleError = errorHandler(logger, 'I caught an error');
-
-handleError(() => {
-  throw new Error('Something went wrong');
-});
-
-handleError(() => {
-  console.log('No error here');
-});
-
-// or simply use the logger directly
-
 const anotherFunction = () => {
   const randomError = Math.random() > 0.5;
 
@@ -40,4 +28,17 @@ const anotherFunction = () => {
   }
 };
 
-anotherFunction();
+export function main() {
+  const handleError = errorHandler(logger, 'I caught an error');
+
+  handleError(() => {
+    throw new Error('Something went wrong');
+  });
+
+  handleError(() => {
+    console.log('No error here');
+  });
+
+  // or simply use the logger directly
+  anotherFunction();
+}
