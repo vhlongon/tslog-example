@@ -1,0 +1,14 @@
+{
+  "name": "ts-log",
+  "module": "index.ts",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "tslog": "^4.9.3"
+  }
+}
