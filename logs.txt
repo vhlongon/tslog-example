@@ -1,3 +1,0 @@
-{"0":"I am a debug log.","_meta":{"runtime":"Nodejs","runtimeVersion":"v18.15.0","hostname":"PSM9GM62GGXK","date":"2024-10-15T14:30:41.920Z","logLevelId":2,"logLevelName":"DEBUG","path":{}}}
-{"0":"I am an info log.","_meta":{"runtime":"Nodejs","runtimeVersion":"v18.15.0","hostname":"PSM9GM62GGXK","date":"2024-10-15T14:30:41.921Z","logLevelId":3,"logLevelName":"INFO","path":{}}}
-{"0":"I am a warn log with a json object:","1":{"foo":"bar"},"_meta":{"runtime":"Nodejs","runtimeVersion":"v18.15.0","hostname":"PSM9GM62GGXK","date":"2024-10-15T14:30:41.930Z","logLevelId":4,"logLevelName":"WARN","path":{}}}
