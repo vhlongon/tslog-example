@@ -17,9 +17,9 @@ const anotherFunction = <T>(logger: Logger<T>) => {
 
   try {
     if (randomError) {
-      throw new Error('Something went wrong');
+      throw new Error('Randomly thrown error');
     }
-    console.log('No error here');
+    // no error here
   } catch (error) {
     logger.error('Using the logger more directly - I caught an error');
   }
@@ -34,11 +34,11 @@ export function main(logType?: LogType) {
   const withErrorWrapper = errorHandler(logger, 'I caught an error');
 
   withErrorWrapper(() => {
-    throw new Error('Something went wrong');
+    throw new Error('Example of function that throws an error');
   });
 
   withErrorWrapper(() => {
-    console.log('No error here');
+    // no error here
   });
 
   // or simply use the logger directly, passing the logger instance
