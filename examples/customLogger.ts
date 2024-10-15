@@ -1,4 +1,5 @@
 import { Logger, type ILogObjMeta, type ISettingsParam, ILogObj } from 'tslog';
+import type { LogType } from './types';
 
 class CustomLogger<LogObj> extends Logger<LogObj> {
   /**
@@ -11,17 +12,15 @@ class CustomLogger<LogObj> extends Logger<LogObj> {
   }
 }
 
-const logger = new CustomLogger({
-  argumentsArrayName: 'args',
-  prettyLogStyles: {
-    logLevelName: {
-      CUSTOM: ['bold', 'magentaBright'],
+export function main(logType?: LogType) {
+  const logger = new CustomLogger({
+    argumentsArrayName: 'args',
+    type: logType,
+    prettyLogStyles: {
+      logLevelName: {
+        CUSTOM: ['bold', 'magentaBright'],
+      },
     },
-  },
-});
-
-export function main() {
-  const logged = logger.custom('Using custom log level');
-
-  logger.info(logged);
+  });
+  logger.custom('Using custom log level');
 }

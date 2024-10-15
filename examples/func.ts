@@ -1,8 +1,5 @@
 import { Logger } from 'tslog';
-
-const logger = new Logger({
-  minLevel: 5,
-});
+import type { LogType } from './types';
 
 const errorHandler =
   <T = unknown>(logger: Logger<T>, ...args: unknown[]) =>
@@ -15,20 +12,25 @@ const errorHandler =
     }
   };
 
-const anotherFunction = () => {
-  const randomError = Math.random() > 0.5;
+export function main(logType?: LogType) {
+  const logger = new Logger({
+    minLevel: 5,
+    type: logType,
+  });
 
-  try {
-    if (randomError) {
-      throw new Error('Something went wrong');
+  const anotherFunction = () => {
+    const randomError = Math.random() > 0.5;
+
+    try {
+      if (randomError) {
+        throw new Error('Something went wrong');
+      }
+      console.log('No error here');
+    } catch (error) {
+      logger.error('Using the logger more directly - I caught an error');
     }
-    console.log('No error here');
-  } catch (error) {
-    logger.error('Using the logger more directly - I caught an error');
-  }
-};
+  };
 
-export function main() {
   const handleError = errorHandler(logger, 'I caught an error');
 
   handleError(() => {

@@ -1,13 +1,15 @@
-import { Logger } from 'tslog';
 import { appendFileSync } from 'node:fs';
+import { Logger } from 'tslog';
+import type { LogType } from './types';
 
-export function main() {
-  const logger = new Logger();
-  logger.attachTransport(logObj => {
-    appendFileSync('logs.txt', `${JSON.stringify(logObj)}\n`);
+const saveLog = (logObj: Record<string, unknown>) => {
+  appendFileSync('logs.txt', `${JSON.stringify(logObj)}\n\n`);
+};
+export function main(logType?: LogType) {
+  const logger = new Logger({
+    type: logType,
+    attachedTransports: [saveLog],
   });
 
-  logger.debug('I am a debug log.');
-  logger.info('I am an info log.');
   logger.warn('I am a warn log with a json object:', { foo: 'bar' });
 }
