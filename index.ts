@@ -4,23 +4,27 @@ const getAnswers = (currentFile: string) => {
   const choices = [
     {
       title: 'Example using a class',
-      value: 'class.ts',
+      value: 'class',
     },
     {
       title: 'Example using a function',
-      value: 'func.ts',
+      value: 'func',
     },
     {
       title: 'Example with production settings',
-      value: 'prod.ts',
+      value: 'prod',
     },
     {
       title: 'Example using a custom logger',
-      value: 'customLogger.ts',
+      value: 'customLogger',
+    },
+    {
+      title: 'Example using logger as json',
+      value: 'jsonLogger',
     },
     {
       title: 'Example saving log to a local file',
-      value: 'saveLog.ts',
+      value: 'saveLog',
     },
     { title: 'Exit', value: 'exit' },
   ];
@@ -28,15 +32,17 @@ const getAnswers = (currentFile: string) => {
     ? choices.findIndex(choice => choice.value === currentFile)
     : 0;
 
-  return [
+  const answers: prompts.PromptObject<string>[] = [
     {
-      type: 'select' as const,
+      type: 'select',
       name: 'file',
       initial,
       message: 'Choose what file to run',
       choices,
     },
   ];
+
+  return answers;
 };
 
 async function main() {
@@ -57,9 +63,9 @@ async function main() {
     } else {
       currentFile = response.file;
       const { main: mainFunction } = await import(
-        `./examples/${response.file}`
+        `./examples/${response.file}.ts`
       );
-      mainFunction();
+      mainFunction(response.logType);
     }
   }
 }
