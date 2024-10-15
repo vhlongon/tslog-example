@@ -1,7 +1,7 @@
 import { Logger } from 'tslog';
 import type { LogType } from './types';
 
-const errorHandler =
+const withErrorHandler =
   <T = unknown>(logger: Logger<T>, ...args: unknown[]) =>
   (callback: () => void) => {
     try {
@@ -17,7 +17,7 @@ const anotherFunction = <T>(logger: Logger<T>) => {
 
   try {
     if (randomError) {
-      throw new Error('Randomly thrown error');
+      throw new Error('Randomly thrown error with stack trace');
     }
     // no error here
   } catch (error) {
@@ -31,13 +31,15 @@ export function main(logType?: LogType) {
     type: logType,
   });
 
-  const withErrorWrapper = errorHandler(logger, 'I caught an error');
+  const run = withErrorHandler(logger, 'I caught an error');
 
-  withErrorWrapper(() => {
-    throw new Error('Example of function that throws an error');
+  run(() => {
+    throw new Error(
+      'Example of function that throws an error with stack trace'
+    );
   });
 
-  withErrorWrapper(() => {
+  run(() => {
     // no error here
   });
 
