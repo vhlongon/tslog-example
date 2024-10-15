@@ -19,6 +19,16 @@ export function main(logType?: LogType) {
     },
   });
 
-  const logged = logger.debug('Log with custom meta info: ');
-  logger.debug(JSON.stringify(logged, null, 2));
+  const logged = logger.debug('Log with total custom meta info: ');
+  console.log(JSON.stringify(logged, null, 2));
+
+  const logger2 = new Logger({
+    type: logType,
+    metaProperty: 'CustomMetaName',
+  });
+
+  console.log('\n');
+
+  const logged2 = logger2.debug('Log with custom meta property name: ');
+  console.log(JSON.stringify(logged2, null, 2));
 }
