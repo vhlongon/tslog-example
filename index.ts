@@ -26,6 +26,10 @@ const getAnswers = (currentFile: string) => {
       title: 'Example saving log to a local file',
       value: 'saveLog',
     },
+    {
+      title: 'Example with custom meta info',
+      value: 'addMetaInfo',
+    },
     { title: 'Exit', value: 'exit' },
   ];
   const initial = currentFile
