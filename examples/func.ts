@@ -12,35 +12,35 @@ const errorHandler =
     }
   };
 
+const anotherFunction = <T>(logger: Logger<T>) => {
+  const randomError = Math.random() > 0.5;
+
+  try {
+    if (randomError) {
+      throw new Error('Something went wrong');
+    }
+    console.log('No error here');
+  } catch (error) {
+    logger.error('Using the logger more directly - I caught an error');
+  }
+};
+
 export function main(logType?: LogType) {
   const logger = new Logger({
     minLevel: 5,
     type: logType,
   });
 
-  const anotherFunction = () => {
-    const randomError = Math.random() > 0.5;
+  const withErrorWrapper = errorHandler(logger, 'I caught an error');
 
-    try {
-      if (randomError) {
-        throw new Error('Something went wrong');
-      }
-      console.log('No error here');
-    } catch (error) {
-      logger.error('Using the logger more directly - I caught an error');
-    }
-  };
-
-  const handleError = errorHandler(logger, 'I caught an error');
-
-  handleError(() => {
+  withErrorWrapper(() => {
     throw new Error('Something went wrong');
   });
 
-  handleError(() => {
+  withErrorWrapper(() => {
     console.log('No error here');
   });
 
-  // or simply use the logger directly
-  anotherFunction();
+  // or simply use the logger directly, passing the logger instance
+  anotherFunction(logger);
 }
