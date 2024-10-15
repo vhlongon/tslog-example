@@ -70,6 +70,7 @@ async function main() {
         `./examples/${response.file}.ts`
       );
       mainFunction(response.logType);
+      console.log('\n');
     }
   }
 }
