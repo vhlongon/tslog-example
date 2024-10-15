@@ -2,13 +2,18 @@
   "name": "ts-log",
   "module": "index.ts",
   "devDependencies": {
+    "@types/prompts": "^2.4.9",
     "bun-types": "latest"
+  },
+  "scripts": {
+    "start": "bun index.ts"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "type": "module",
   "dependencies": {
+    "prompts": "^2.4.2",
     "tslog": "^4.9.3"
   }
 }
