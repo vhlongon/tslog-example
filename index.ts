@@ -19,7 +19,7 @@ const getAnswers = (currentFile: string) => {
       value: 'prod',
     },
     {
-      title: 'Example using a custom logger',
+      title: 'Example using a logger with custom level',
       value: 'customLogger',
     },
     {
