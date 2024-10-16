@@ -43,9 +43,9 @@ export function main(logType?: LogType) {
   const logger = new Logger({
     name: 'My Logger',
     type: logType,
-    maskPlaceholder: 'XXX',
+    maskPlaceholder: '🍌',
     prefix: ['!!'],
-    maskValuesOfKeys: ['password', 'token'],
+    maskValuesOfKeys: ['password', 'token', 'banana'],
     prettyLogStyles: {
       logLevelName: {
         '*': ['bold', 'black', 'bgWhiteBright', 'dim'],
@@ -73,7 +73,8 @@ export function main(logType?: LogType) {
 
   // you can get log object from the log method
   const logged = handler.log('This is a silly log from Handler');
-  handler.log(logged, 'debug');
+  // you can use the log object to get more information like meta data
+  handler.logger.info('This is the log object', logged);
 
   // log from a method
   handler.log('This is a silly log from Handler');
@@ -85,7 +86,7 @@ export function main(logType?: LogType) {
   handler.log('This is a fatal log from Handler', 'fatal');
 
   // mask values of keys
-  handler.log({ token: '123' }, 'info');
+  handler.log({ token: '123', password: 'abc', banana: 'very good' }, 'info');
 
   // or expose the logger directly
   handler.logger.silly('This is a debug log from Handler', { token: '123' });
