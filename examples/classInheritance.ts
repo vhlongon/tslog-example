@@ -1,30 +1,42 @@
 import type { LogLevel } from './types';
-import { Logger } from 'tslog';
+import { type ISettingsParam, Logger } from 'tslog';
 
 class Handler {
   public logger: Logger<unknown>;
 
   constructor(logger: Logger<unknown>) {
-    logger.settings.name = `${logger.settings.name}::Handler`;
-    logger.settings.prefix = ['🔧'];
+    const { name, prettyErrorParentNamesSeparator, prefix } = logger.settings;
+    const isDefaultSeparator = prettyErrorParentNamesSeparator !== ':';
+    logger.settings.name = `${name}::Handler`;
+    logger.settings.prettyErrorParentNamesSeparator = isDefaultSeparator
+      ? prettyErrorParentNamesSeparator
+      : '🦠';
+    logger.settings.prefix = [...prefix, '🔧'];
     this.logger = logger;
   }
 
-  log(message: string) {
-    this.logger.info(message);
+  protected initializeLogger(
+    logger: Logger<unknown>,
+    settings: ISettingsParam<unknown>
+  ): Logger<unknown> {
+    return logger.getSubLogger(settings);
+  }
+
+  log(message: string, level: LogLevel = 'info') {
+    this.logger[level](message);
   }
 }
 
 class Controller extends Handler {
   constructor(logger: Logger<unknown>) {
     super(logger);
-    this.logger = this.logger.getSubLogger({
-      prettyErrorParentNamesSeparator: '🦠',
+    this.logger = this.initializeLogger(this.logger, {
       name: 'Controller',
       prefix: ['🚦'],
     });
   }
 
+  // implement log method in any way, here we just call the logger method
   log(message: string) {
     this.logger.info(message);
   }
@@ -33,7 +45,7 @@ class Controller extends Handler {
 class Service extends Controller {
   constructor(logger: Logger<unknown>) {
     super(logger);
-    this.logger = this.logger.getSubLogger({
+    this.logger = this.initializeLogger(this.logger, {
       name: 'Service',
       prefix: ['🚀'],
     });
