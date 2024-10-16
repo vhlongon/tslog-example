@@ -5,6 +5,11 @@ class Handler<LogObj> {
   public logger: Logger<LogObj>;
 
   constructor(logger: Logger<LogObj>) {
+    this.setDefaultLoggerSettings(logger);
+    this.logger = logger;
+  }
+
+  private setDefaultLoggerSettings(logger: Logger<LogObj>) {
     const { name, prettyErrorParentNamesSeparator, prefix } = logger.settings;
     const isDefaultSeparator = prettyErrorParentNamesSeparator !== ':';
     logger.settings.name = `${name}::Handler`;
@@ -12,7 +17,6 @@ class Handler<LogObj> {
       ? prettyErrorParentNamesSeparator
       : '🦠';
     logger.settings.prefix = [...prefix, '🔧'];
-    this.logger = logger;
   }
 
   protected initializeLogger(
