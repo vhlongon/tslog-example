@@ -7,6 +7,10 @@ const getAnswers = (currentFile: string) => {
       value: 'class',
     },
     {
+      title: 'Example using a class with inheritance for namespaces',
+      value: 'classInheritance',
+    },
+    {
       title: 'Example using a function',
       value: 'func',
     },

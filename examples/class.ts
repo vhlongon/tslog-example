@@ -1,14 +1,5 @@
 import { type ILogObjMeta, Logger } from 'tslog';
-import type { LogType } from './types';
-
-type LogLevel =
-  | 'silly'
-  | 'trace'
-  | 'debug'
-  | 'info'
-  | 'warn'
-  | 'error'
-  | 'fatal';
+import type { LogLevel, LogType } from './types';
 
 abstract class BaseLogger<T = unknown> {
   public logger: Logger<T>;
@@ -99,17 +90,4 @@ export function main(logType?: LogType) {
   // or expose the logger directly
   handler.logger.silly('This is a debug log from Handler', { token: '123' });
   // etc...
-
-  // namespacing
-  const childLog = handler.logger.getSubLogger({
-    prefix: ['@'],
-    name: 'ChildLogger',
-    prettyErrorParentNamesSeparator: ' > ',
-  });
-  childLog.debug('This is a debug log from childLog');
-  const grandChildLog = childLog.getSubLogger({
-    prefix: ['$'],
-    name: 'GrandChildLogger',
-  });
-  grandChildLog.debug('This is a debug log from grandChildLog');
 }
