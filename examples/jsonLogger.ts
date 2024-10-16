@@ -6,5 +6,5 @@ export function main(logType: LogType = 'json') {
     type: logType,
   });
 
-  logger.debug('Logging as JSON:', { fruit: '🍌' });
+  logger.debug('Logging as JSON:', { fruit: '🍒' });
 }
