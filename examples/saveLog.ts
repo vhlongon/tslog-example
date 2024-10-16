@@ -1,5 +1,6 @@
 import { appendFileSync } from 'node:fs';
 import { Logger } from 'tslog';
+import { randomInt } from 'node:crypto';
 import type { LogType } from './types';
 
 // Attaches external Loggers, e.g. external log services, file system, database
@@ -17,5 +18,9 @@ export function main(logType?: LogType) {
   // or later
   // logger.attachTransport(saveLog);
 
-  logger.warn('I am a warn log with a json object:', { foo: 'bar' });
+  const randomId = randomInt(1, 1000000);
+  logger.warn('Some log that will be saved to a file:', {
+    foo: 'bar',
+    id: randomId,
+  });
 }
