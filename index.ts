@@ -1,4 +1,5 @@
 import prompts from 'prompts';
+import figlet from 'figlet';
 
 const getAnswers = (currentFile: string) => {
   const choices = [
@@ -54,6 +55,11 @@ const getAnswers = (currentFile: string) => {
 };
 
 async function main() {
+  const title = await figlet.text('tslog', {
+    font: 'Banner4',
+  });
+
+  console.log(`${title}\n`);
   let shouldContinue = true;
   let currentFile = '';
 
