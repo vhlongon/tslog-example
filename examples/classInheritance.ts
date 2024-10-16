@@ -1,10 +1,10 @@
 import type { LogLevel } from './types';
 import { type ISettingsParam, Logger } from 'tslog';
 
-class Handler {
-  public logger: Logger<unknown>;
+class Handler<LogObj> {
+  public logger: Logger<LogObj>;
 
-  constructor(logger: Logger<unknown>) {
+  constructor(logger: Logger<LogObj>) {
     const { name, prettyErrorParentNamesSeparator, prefix } = logger.settings;
     const isDefaultSeparator = prettyErrorParentNamesSeparator !== ':';
     logger.settings.name = `${name}::Handler`;
@@ -16,9 +16,9 @@ class Handler {
   }
 
   protected initializeLogger(
-    logger: Logger<unknown>,
-    settings: ISettingsParam<unknown>
-  ): Logger<unknown> {
+    logger: Logger<LogObj>,
+    settings: ISettingsParam<LogObj>
+  ): Logger<LogObj> {
     return logger.getSubLogger(settings);
   }
 
@@ -27,8 +27,8 @@ class Handler {
   }
 }
 
-class Controller extends Handler {
-  constructor(logger: Logger<unknown>) {
+class Controller<LogObj> extends Handler<LogObj> {
+  constructor(logger: Logger<LogObj>) {
     super(logger);
     this.logger = this.initializeLogger(this.logger, {
       name: 'Controller',
@@ -42,8 +42,8 @@ class Controller extends Handler {
   }
 }
 
-class Service extends Controller {
-  constructor(logger: Logger<unknown>) {
+class Service<MyLogObj> extends Controller<MyLogObj> {
+  constructor(logger: Logger<MyLogObj>) {
     super(logger);
     this.logger = this.initializeLogger(this.logger, {
       name: 'Service',
