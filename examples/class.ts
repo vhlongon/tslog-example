@@ -13,29 +13,7 @@ abstract class BaseLogger<T = unknown> {
 
 class Handler extends BaseLogger {
   log(message: unknown, level: LogLevel = 'silly'): ILogObjMeta | undefined {
-    switch (level) {
-      case 'silly': {
-        return this.logger.silly(message);
-      }
-      case 'trace': {
-        return this.logger.trace(message);
-      }
-      case 'debug': {
-        return this.logger.debug(message);
-      }
-      case 'info': {
-        return this.logger.info(message);
-      }
-      case 'warn': {
-        return this.logger.warn(message);
-      }
-      case 'error': {
-        return this.logger.error(message);
-      }
-      case 'fatal': {
-        return this.logger.fatal(message);
-      }
-    }
+    return this.logger[level](message);
   }
 }
 
